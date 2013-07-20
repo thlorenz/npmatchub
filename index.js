@@ -1,3 +1,3 @@
 'use strict';
 
-exports.logins = require('./lib/logins');
+exports.logins = require('./lib/logins-count');

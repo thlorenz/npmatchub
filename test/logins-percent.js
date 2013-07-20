@@ -3,7 +3,7 @@
 /*jshint asi: true */
 
 var test = require('tap').test
-var percentify = require('../lib/percentify-logins')
+var percentify = require('../lib/logins-percent')
 
 
 test('\ncorrectly maps counts to percents for each login rounded to 2 decimals sorted highest percent to lowest', function (t) {

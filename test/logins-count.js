@@ -4,7 +4,6 @@
 var test = require('tap').test
 var logins = require('..').logins
 
-
 test('\ndetermines tjholowaychuk correctly', function (t) {
   var tj = require('./fixtures/tj');
   t.deepEqual(
