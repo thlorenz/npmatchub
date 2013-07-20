@@ -2,7 +2,7 @@
 /*jshint asi: true */
 
 var test = require('tap').test
-var loginRepo = require('../lib/logins-repo-from-url')
+var loginRepo = require('../lib/login-repo-from-url')
 
 test('\ndetermines the user login and repo name correcctly from the url', function (t) {
 
