@@ -16,7 +16,8 @@
   },
   "homepage": "https://github.com/thlorenz/npmatchub",
   "dependencies": {
-    "runnel": "~0.5.0"
+    "asyncreduce": "~0.1.2",
+    "xtend": "~2.0.6"
   },
   "devDependencies": {
     "nave": "~0.4.3",
