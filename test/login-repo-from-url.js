@@ -13,5 +13,7 @@ test('\ndetermines the user login and repo name correcctly from the url', functi
   t.deepEqual({ login: 'thlorenz', repo: 'runnel'}, loginRepo('github.com/thlorenz/runnel'))
   t.deepEqual({ login: 'thlorenz', repo: 'runnel'}, loginRepo('thlorenz/runnel'))
 
+  t.deepEqual({ login: 'substack', repo: 'hyperquest' }, loginRepo('git@github.com:substack/hyperquest.git'))
+
   t.end()
 })
