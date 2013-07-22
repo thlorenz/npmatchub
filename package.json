@@ -1,6 +1,6 @@
 {
   "name": "npmatchub",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Attempts to match npm users who failed to provide their github name with a github account and do the same for their npm packages.",
   "main": "index.js",
   "scripts": {
