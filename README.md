@@ -79,8 +79,7 @@ It will try in that order:
 - `/<username>/<packagename>`
 - `/<username>/node-<packagename>`
 - `/<username>/<packagename>js`
-- `/<username>/js-<packagename>`
-
+- `/<username>/<packagename>.js`
 
 ## License
 
