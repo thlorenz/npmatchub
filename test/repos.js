@@ -8,13 +8,14 @@ var fix = {
   // given same name
 
     // correcting 'cluster.git' to 'cluster'
-    // TODO:, 'cluster': { login: 'LearnBoost', repo: 'cluster', repoUrl: 'git://github.com/LearnBoost/cluster' }
+      'cluster': { login: 'LearnBoost', repo: 'cluster', repoUrl: 'git://github.com/LearnBoost/cluster' }
 
   // given different name
 
-    'canvas': { login: 'learnboost', repo: 'node-canvas', repoUrl: 'git://github.com/learnboost/node-canvas' }
+    , 'canvas': { login: 'learnboost', repo: 'node-canvas', repoUrl: 'git://github.com/learnboost/node-canvas' }
+
     // correcting 'builder.js.git' to 'builder.js'
-    // TODO:, 'component-builder': { login: 'component', repo: 'builder', repoUrl: 'https://github.com/component/builder.js' }
+    , 'component-builder': { login: 'component', repo: 'builder.js', repoUrl: 'https://github.com/component/builder.js' }
 
   // not given - same name
 
@@ -24,10 +25,15 @@ var fix = {
   // not given - different name
     , 'is-code': { login: 'visionmedia', repo: 'node-is-code', repoUrl: 'https://github.com/visionmedia/node-is-code' }
     , 'bytes': { login: 'visionmedia', repo: 'bytes.js', repoUrl: 'https://github.com/visionmedia/bytes.js' }
+
+  // not given - login communicated in name
+    , 'audio-component': { login: 'component', repo: 'audio', repoUrl: 'https://github.com/component/audio' }
+
 }
 
 
 test('\nfixing TJs repos', function (t) {
+
   var tj = require('../test/fixtures/tj')
     .filter(function (r) {
       return !!fix[r.name];
@@ -35,6 +41,7 @@ test('\nfixing TJs repos', function (t) {
 
   var opts = {
       packages :  tj
+    , logins : [ 'visionmedia', 'component' ]
     , trust    :  true
   };
 
@@ -42,8 +49,6 @@ test('\nfixing TJs repos', function (t) {
     t.notOk(err, 'no error');
 
     var fixed = repos.reduce(function (acc, r) { acc[r.name] = r; return acc; }, {});
-   // console.error('fixed: ', fixed);
-
 
     function check(name, msg) {
       t.ok(fixed[name], 'fixed ' + name);
@@ -54,9 +59,19 @@ test('\nfixing TJs repos', function (t) {
       t.equal(fixed[name].repoUrl, fix[name].repoUrl, msg + ' - repoUrl')
     }
 
+    check('cluster', 'verifies info for existing url with same name')
     check('canvas', 'verifies info for existing url with different name')
-//    check('lingo', 'finds info for non-existing url whith same name')
-//    check('indexOf', 'finds info for non-existing url whith same name')
+
+    check('component-builder', 'verifies info for existing url with different name')
+
+    check('lingo', 'finds info for non-existing url with same name')
+    check('indexof', 'finds info for non-existing url with same name')
+
+    check('is-code', 'finds info for non-existing url with different name')
+    check('bytes', 'finds info for non-existing url with different name')
+
+    check ('audio-component', 'finds info for non-existing url if login is part of name')
+
     t.end()
   });
 
