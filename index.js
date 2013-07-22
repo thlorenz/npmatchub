@@ -8,5 +8,5 @@ exports.repos = require('./lib/repos');
 exports.resolve = require('./lib/repos-resolve-github');
 
 // exposed utilities
-exports.loginsPercent = require('./lib/logins-percent');
+exports.loginPercents = require('./lib/logins-percent');
 exports.stabs = require('./lib/repos-stabs');

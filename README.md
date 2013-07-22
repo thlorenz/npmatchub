@@ -1,9 +1,9 @@
-# npmatchub
-[![build status](https://secure.travis-ci.org/thlorenz/npmatchub.png)](http://travis-ci.org/thlorenz/npmatchub)
+# npmatchub [![build status](https://secure.travis-ci.org/thlorenz/npmatchub.png)](http://travis-ci.org/thlorenz/npmatchub)
 
 Attempts to match npm users who failed to provide their github name with a github account and do the same for their npm packages.
 
 #### Attempt to find TJs repos on github
+
 ```js
 var repos = require('npmatchub').repos;
 
@@ -43,10 +43,6 @@ Originals have 59 known repoUrls and fixed ones have 264
 
 [full example](https://github.com/thlorenz/npmatchub/blob/master/examples/fix-tjs-repos.js)
 
-## Status
-
-Alpha - `logins` and `repos` are working but some more testing still needs to be done
-
 ## Installation
 
     npm install npmatchub
@@ -72,7 +68,7 @@ Alpha - `logins` and `repos` are working but some more testing still needs to be
 
 ```
 /**
- * Attempts to find repo urls for the given npm packages for which it is missing.
+ * Attempts to find repo information for the given npm packages for which a gitub url is missing.
  *
  * @name repos
  * @function
@@ -85,7 +81,6 @@ Alpha - `logins` and `repos` are working but some more testing still needs to be
  * @param cb {Function} calls back with a copy of the npm packages metadata with extra repo urls.
  * @return {EventEmitter} - emits 'processing' and 'processed' events
  */
-var go = module.exports = function (opts, cb) {
 ```
 
 Given a user's npm packages metadata, it will make a best attempt to find the github url for each package.
@@ -96,6 +91,28 @@ It will try in that order:
 - `/<username>/node-<packagename>`
 - `/<username>/<packagename>js`
 - `/<username>/<packagename>.js`
+- other magic, i.e. deducing login name from partial names found in package name
+
+###*npmatchub.resolve(pack, logins, cb)*
+
+This is the function that is used to resolve github information for a package and is exposed for you to use in case you
+decide to override `resolve` and want to delegate some calls to it in your implementation, as demonstrated in [this
+example](https://github.com/thlorenz/npmatchub/blob/master/examples/fix-tjs-repos-wrap-resolve.js).
+
+###*npmatchub.stabs(logins, packname) : [ github infos to try ]*
+
+This is the function that is used in order to generate the possible `login/repo` combinations that npmatchub will take a
+stab at when trying to find a github repository for a given package.
+
+It is exposed here in case you want to use it when you override the `resolve` function.
+
+###*npmatchub.loginPercents(loginCounts) : [ logins with percentage of their occurrence ]*
+
+This is the function used in order to convert the login counts, i.e. `[ { login: 'foo', count: 2 } , .. ]` into an array
+with percentages rounded to two decimals, i.e. `[ { login: 'foo', percent: 66.66 } .. ]`.
+
+It is exposed here in case you are more interested in percentages then in the counts returned
+by `npmatchub.logins`.
 
 ## License
 
