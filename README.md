@@ -14,9 +14,13 @@ var opts = {
   , trust    :  true // if github url is provided, we trust it
 };
 
+function countUrls (packages) {
+  return packages.filter(function (x) { return x.repoUrl }).length;
+}
+
 repos(opts, function (err, repos) {
   if (err) return console.error(err);
-  console.log('repos: ', repos.length);
+  console.log('Originals have %s known repoUrls and fixed ones have %s', countUrls(tj), countUrls(repos));
 })
 .on('processing', function (pack) {
   process.stderr.write('.');
@@ -26,6 +30,18 @@ repos(opts, function (err, repos) {
   else console.error('%s: \tNOT FOUND', pack.name);
 });
 ```
+
+```
+.Lingo:   visionmedia/Lingo
+.api-schema:  NOT FOUND
+.asset:   visionmedia/asset
+.audio-component:   component/audio
+[ .. ]
+
+Originals have 59 known repoUrls and fixed ones have 264
+```
+
+[full example](https://github.com/thlorenz/npmatchub/blob/master/examples/fix-tjs-repos.js)
 
 ## Status
 

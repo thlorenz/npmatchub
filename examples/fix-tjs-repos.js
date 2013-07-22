@@ -8,10 +8,14 @@ var opts = {
   , trust    :  true
 };
 
+function countUrls (packages) {
+  return packages.filter(function (x) { return x.repoUrl }).length;
+}
+
 repos(opts, function (err, repos) {
   if (err) return console.error(err);
   require('fs').writeFileSync(__dirname + '/../test/fixtures/tj-fixed.js', JSON.stringify(repos,null,2), 'utf8');
-  console.log('repos: ', repos.length);
+  console.log('Originals have %s known repoUrls and fixed ones have %s', countUrls(tj), countUrls(repos));
 })
 .on('processing', function (pack) {
   process.stderr.write('.');
