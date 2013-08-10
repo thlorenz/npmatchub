@@ -1,7 +1,10 @@
 'use strict';
 /*jshint asi: true */
 
-var test = require('tap').test
+var debug //=  true;
+var test  =  debug  ? function () {} : require('tap').test
+var test_ =  !debug ? function () {} : require('tap').test
+
 var getStabs = require('../lib/repos-stabs')
 
 function inspect(obj, depth) {
@@ -16,10 +19,12 @@ function straightForward (name) {
     { login: 'visionmedia' ,  repo: 'node-' + name },
     { login: 'visionmedia' ,  repo: name + 'js' },
     { login: 'visionmedia' ,  repo: name + '.js' },
+    { login: 'visionmedia'   ,  repo: 'js' + name },
     { login: 'component'   ,  repo: name },
     { login: 'component'   ,  repo: 'node-' + name  },
     { login: 'component'   ,  repo: name + 'js' },
-    { login: 'component'   ,  repo: name + '.js' }
+    { login: 'component'   ,  repo: name + '.js' },
+    { login: 'component'   ,  repo: 'js' + name }
   ]
 }
 
