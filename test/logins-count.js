@@ -21,3 +21,13 @@ test('\ndetermines tjholowaychuk correctly', function (t) {
   )
   t.end()
 })
+
+test('\nhandles invalids correctly', function (t) {
+  var invalids = require('./fixtures/invalids');
+  t.deepEqual(
+      logins(invalids)
+    ,  [ ]
+    , 'ignores all packages with invalid repo urls'
+  )
+  t.end()
+})
